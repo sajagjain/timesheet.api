@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using FluentValidation;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using timesheet.business;
 using timesheet.business.Dtos;
@@ -29,7 +30,14 @@ namespace timesheet.api.controllers
             var validationResult = validator.Validate(dto);
             if (!validationResult.IsValid)
             {
-                return BadRequest(validationResult.Errors);
+                var problemDetails = new ValidationProblemDetails(validationResult.ToDictionary())
+                {
+                    Status = StatusCodes.Status400BadRequest,
+                    Title = "Validation Failed",
+                    Type = "https://example.com/validation-error",
+                };
+
+                return BadRequest(problemDetails);
             }
 
             var timesheetId = await timesheetService.CreateTimesheet(dto);

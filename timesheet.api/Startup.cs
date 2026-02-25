@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using timesheet.api.ExceptionHandlers;
 using timesheet.business;
 using timesheet.business.Interfaces;
 using timesheet.data;
@@ -40,6 +41,9 @@ namespace timesheet.api
             services.AddScoped<IReportingService, ReportingService>();
 
             services.AddControllers();
+
+            services.AddExceptionHandler<GlobalExceptionHandler>();
+            services.AddProblemDetails();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
