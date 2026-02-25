@@ -61,6 +61,8 @@ namespace timesheet.api
             {
                 endpoints.MapControllers();
             });
+
+            app.UseExceptionHandler();
         }
     }
 }
