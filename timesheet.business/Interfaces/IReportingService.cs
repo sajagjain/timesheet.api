@@ -1,10 +1,10 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using timesheet.business.Dtos;
 
 namespace timesheet.business.Interfaces
 {
     public interface IReportingService
     {
-        Task<ReportingResponseDto> GetEmployeeProductivityReport();
+        Task<ReportingResponseDto> GetEmployeeProductivityReport(int year, int month);
     }
 }

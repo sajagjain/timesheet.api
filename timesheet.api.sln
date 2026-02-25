@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.168
+# Visual Studio Version 18
+VisualStudioVersion = 18.3.11520.95 d18.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "timesheet.api", "timesheet.api\timesheet.api.csproj", "{39609E5F-0ED9-4A4A-87BD-EBA01C770A95}"
 EndProject
@@ -10,6 +10,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "timesheet.data", "timesheet.data\timesheet.data.csproj", "{7F0D2284-D648-45ED-9A57-9087CEBA1925}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "timesheet.business", "timesheet.business\timesheet.business.csproj", "{9DC0811F-EAAD-4E57-BEFC-5BFCDE53B949}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "http", "http", "{7F421363-5188-4AB1-B7FA-F602D57CE8CF}"
+	ProjectSection(SolutionItems) = preProject
+		timesheet-api.http = timesheet-api.http
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

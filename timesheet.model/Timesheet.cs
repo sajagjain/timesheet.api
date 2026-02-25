@@ -8,22 +8,19 @@ using System.Threading.Tasks;
 
 namespace timesheet.model
 {
-    //Tasks
-    //Employee
-    //Timesheet -> Day Task
-    //
-    internal class Timesheet
+    public class Timesheet
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
-        public int Id { get; private set; }
+        public int Id { get; set; }
 
-        public int UserId { get; private set; }
+        public int EmployeeId { get; set; }
+        public Employee Employee { get; set; }
 
-        public ICollection<Task> Tasks { get; private set; }
+        public int TaskId { get; set; }
+        public Task Task { get; set; }
 
-        public DateTimeOffset CreatedAt { get; private set; }
-
-        public DateTimeOffset TimeSheetDate { get; private set; }
+        public DateTimeOffset StartDate { get; set; }
+        public DateTimeOffset EndDate { get; set; }
     }
 }

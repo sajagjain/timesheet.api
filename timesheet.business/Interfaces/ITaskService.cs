@@ -6,7 +6,5 @@ namespace timesheet.business.Interfaces
     public interface ITaskService
     {
         Task<AutoCompleteResponseDto> AutoComplete(string searchString);
-        Task<int> CreateTask(CreateTaskRequestDto dto);
-        Task<ReportingResponseDto> GetEmployeeProductivityReport();
     }
 }
