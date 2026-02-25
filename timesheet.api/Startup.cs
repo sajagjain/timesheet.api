@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using timesheet.business;
+using timesheet.business.Interfaces;
 using timesheet.data;
 
 namespace timesheet.api
@@ -11,6 +13,7 @@ namespace timesheet.api
     public class Startup
     {
         public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration config)
         {
             Configuration = config;
@@ -21,15 +24,25 @@ namespace timesheet.api
         {
             services.AddCors(options =>
             {
-                options.AddPolicy("CorsPolicy",
-                                  builder => builder.AllowAnyOrigin()
-                                                    .AllowAnyMethod()
-                                                    .AllowAnyHeader()
-                                                    .AllowCredentials());
+                options.AddPolicy(
+                    "CorsPolicy",
+                    builder =>
+                        builder
+                            .AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader()
+                            .AllowCredentials()
+                );
             });
 
-            services.AddDbContext<TimesheetDb>(options => 
-                    options.UseSqlServer(Configuration.GetConnectionString("TimesheetDbConnection")));
+            services.AddValidatorsFromAssembly(typeof(Startup).Assembly);
+
+            services.AddDbContext<TimesheetDb>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("TimesheetDbConnection"))
+            );
+
+            services.AddScoped<ITaskService, TaskService>();
+            services.AddScoped<IReportingService, ReportingService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,7 +53,6 @@ namespace timesheet.api
             {
                 app.UseDeveloperExceptionPage();
             }
-
         }
     }
 }
