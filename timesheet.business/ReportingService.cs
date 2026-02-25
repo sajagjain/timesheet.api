@@ -17,17 +17,20 @@ namespace timesheet.business
             var to = from.AddMonths(1);
 
             var records = await db
-                .Timesheets.Include(t => t.Employee)
-                .Where(t => t.StartDate >= from && t.StartDate < to)
+                .Timesheets.Where(t => t.StartDate >= from && t.StartDate < to)
+                .Include(t => t.Employee)
+                .ToListAsync();
+
+            var mappedEmployeeReportingDto = records
                 .GroupBy(t => t.EmployeeId)
                 .Select(g => new EmployeeReportingDto(
                     g.Key,
                     g.Select(t => t.Employee).FirstOrDefault().Name ?? "Unknown",
-                    g.Sum(t => EF.Functions.DateDiffHour(t.StartDate, t.EndDate))
+                    g.Sum(t => (t.EndDate - t.StartDate).Hours)
                 ))
-                .ToListAsync();
+                .ToList();
 
-            return new ReportingResponseDto(records);
+            return new ReportingResponseDto(mappedEmployeeReportingDto);
         }
     }
 }
