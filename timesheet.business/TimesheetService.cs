@@ -7,13 +7,13 @@ using timesheet.model;
 
 namespace timesheet.business
 {
-    public class TimesheetService(TimesheetDb db) : ITimesheetService
+    public class TimesheetService(TimesheetDb _timesheetDbContext) : ITimesheetService
     {
         public async Task<int> CreateTimesheet(CreateTimesheetRequestDto dto)
         {
             var timesheet = dto.ToEntity();
-            db.Timesheets.Add(timesheet);
-            await db.SaveChangesAsync();
+            _timesheetDbContext.Timesheets.Add(timesheet);
+            await _timesheetDbContext.SaveChangesAsync();
 
             return timesheet.Id;
         }

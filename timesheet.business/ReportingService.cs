@@ -9,14 +9,14 @@ using timesheet.model;
 
 namespace timesheet.business
 {
-    public class ReportingService(TimesheetDb db) : IReportingService
+    public class ReportingService(TimesheetDb _timesheetDbContext) : IReportingService
     {
         public async Task<ReportingResponseDto> GetEmployeeProductivityReport(int year, int month)
         {
             var from = new DateTimeOffset(new DateTime(year, month, 1), TimeSpan.Zero);
             var to = from.AddMonths(1);
 
-            var records = await db
+            var records = await _timesheetDbContext
                 .Timesheets.Where(t => t.StartDate >= from && t.StartDate < to)
                 .Include(t => t.Employee)
                 .ToListAsync();

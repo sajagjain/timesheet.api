@@ -11,16 +11,16 @@ namespace timesheet.business
 {
     public class TaskService : ITaskService
     {
-        private readonly TimesheetDb db;
+        private readonly TimesheetDb _timesheetDbContext;
 
-        public TaskService(TimesheetDb dbContext)
+        public TaskService(TimesheetDb timesheetDbContext)
         {
-            this.db = dbContext;
+            _timesheetDbContext = timesheetDbContext;
         }
 
         public async Task<AutoCompleteResponseDto> AutoComplete(string searchString)
         {
-            var query = db.Tasks.AsQueryable();
+            var query = _timesheetDbContext.Tasks.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(searchString))
             {
