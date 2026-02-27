@@ -27,7 +27,7 @@ namespace timesheet.api.controllers
         [HttpGet("getall")]
         public IActionResult GetAll(string text)
         {
-            var items = this.employeeService.GetEmployees();
+            var items = employeeService.GetEmployees();
             return new ObjectResult(items);
         }
     }
