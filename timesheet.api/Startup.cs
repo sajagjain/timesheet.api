@@ -5,8 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using timesheet.api.ExceptionHandlers;
-using timesheet.business;
-using timesheet.business.Interfaces;
+using timesheet.business.Extensions;
 using timesheet.data;
 
 namespace timesheet.api
@@ -36,9 +35,7 @@ namespace timesheet.api
                 options.UseSqlServer(Configuration.GetConnectionString("TimesheetDbConnection"))
             );
 
-            services.AddScoped<ITaskService, TaskService>();
-            services.AddScoped<ITimesheetService, TimesheetService>();
-            services.AddScoped<IReportingService, ReportingService>();
+            services.AddTimesheetServices();
 
             services.AddControllers();
 
